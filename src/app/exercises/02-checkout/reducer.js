@@ -28,6 +28,10 @@ function reducer(state, action) {
         draftState.splice(itemIndex, 1);
         return;
       }
+
+      case 'set-initial-state':{
+        return action.items;
+      }
     }
   });
 }

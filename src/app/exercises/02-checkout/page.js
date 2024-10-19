@@ -10,8 +10,25 @@ import './styles.css';
 function CheckoutExercise() {
   const [items, dispatch] = React.useReducer(
     reducer,
-    []
+    null
   );
+
+  React.useEffect(() => {
+    const savedItemsStr = window.localStorage.getItem("items");
+
+    dispatch({
+      type: 'set-initial-state',
+      items: savedItemsStr ? JSON.parse(savedItemsStr) : []
+    })
+  }, []);
+
+  React.useEffect(() => {
+    if(!items)
+      return;
+    const itemsStr = JSON.stringify(items);
+    //console.log(itemsStr);
+    window.localStorage.setItem('items', itemsStr);
+  }, [items]);
 
   return (
     <>
